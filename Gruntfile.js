@@ -25,7 +25,8 @@ module.exports = function (grunt) {
 	    			js: '<%= app.components.base %>bootstrap/dist/js/bootstrap.js',
 	    			fonts: '<%= app.components.base %>bootstrap/dist/fonts'
 	    		},
-	    		jquery: '<%= app.components.base %>jquery/jquery.js'
+	    		jquery: '<%= app.components.base %>jquery/jquery.js',
+	    		fullcalendar: '<%= app.components.base %>fullcalendar/fullcalendar.js'
 	    	},
 	    	src: {
 	    		base: 'src/main/webapp/',
@@ -95,7 +96,12 @@ module.exports = function (grunt) {
 	    		}
 	    	},
 	    	lib: {
-	    		src: ['<%= app.components.jquery %>', '<%= app.components.angular %>', '<%= app.components.bootstrap.js %>'],
+	    		src: [
+	    		      '<%= app.components.jquery %>',
+	    		      '<%= app.components.angular %>',
+	    		      '<%= app.components.bootstrap.js %>',
+	    		      '<%= app.components.fullcalendar %>'
+	    		],
 	    		dest: '<%= app.build %><%= pkg.name %>-lib.js'
 	    	}
 	    },
