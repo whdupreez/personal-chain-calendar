@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 	require('time-grunt')(grunt);
 
 	grunt.registerTask('build', ['clean', 'less', 'html2js', 'concat', 'copy']);
+	grunt.registerTask('serve', ['connect:site', 'build', 'watch'])
 	grunt.registerTask('default', ['build']);
 
     /* ---------------------------------------------------
@@ -135,6 +136,20 @@ module.exports = function (grunt) {
 	        		dest: '<%= app.dist %>'
 	        	}]
 	        }
+	    },
+
+	    /* ---------------------------------------------------
+	     *  Web Server
+	     * --------------------------------------------------- */
+
+	    connect: {
+	    	site: {
+	    		options: {
+	    			livereload: true,
+	    			port: 8080,
+	    			base: 'target-grunt/dist'
+	    		}
+	    	}
 	    },
 
 	    /* ---------------------------------------------------

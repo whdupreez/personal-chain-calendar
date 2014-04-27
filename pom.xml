@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.willydupreez.personal</groupId>
-	<artifactId>personal-chain-calendar</artifactId>
+	<artifactId>chain-calendar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -13,7 +13,6 @@
 		<version.maven.compiler>3.1</version.maven.compiler>
 
 		<undertow.version>1.0.6.Final</undertow.version>
-		<orientdb.version>1.7-rc2</orientdb.version>
 
 		<junit.version>4.11</junit.version>
 
@@ -28,6 +27,7 @@
 			<version>${undertow.version}</version>
 		</dependency>
 
+		<!-- JSON -->
 		<dependency>
 			<groupId>javax.json</groupId>
 			<artifactId>javax.json-api</artifactId>
@@ -40,10 +40,12 @@
 			<version>1.0.4</version>
 		</dependency>
 
+		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>
