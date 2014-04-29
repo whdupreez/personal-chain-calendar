@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 	require('time-grunt')(grunt);
 
 	grunt.registerTask('build', ['clean', 'less', 'html2js', 'concat', 'copy']);
-	grunt.registerTask('serve', ['connect:site', 'build', 'watch'])
+	grunt.registerTask('serve', ['connect:site', 'express:dev', 'build', 'watch'])
 	grunt.registerTask('default', ['build']);
 
     /* ---------------------------------------------------
@@ -37,6 +37,10 @@ module.exports = function (grunt) {
 	    		html: {
 	    			app: 'src/main/webapp/index.html',
 	    			tpl: 'src/main/webapp/**/*.tpl.html'
+	    		},
+	    		server: {
+	    			js: 'src/main/server/**/*.js',
+	    			main: 'src/main/server/server.js'
 	    		}
 	    	},
 	    	res: {
@@ -146,8 +150,16 @@ module.exports = function (grunt) {
 	    	site: {
 	    		options: {
 	    			livereload: true,
-	    			port: 8080,
+	    			port: 9000,
 	    			base: 'target-grunt/dist'
+	    		}
+	    	}
+	    },
+
+	    express: {
+	    	dev: {
+	    		options: {
+	    			script: '<%= app.src.server.main %>'
 	    		}
 	    	}
 	    },
@@ -175,6 +187,17 @@ module.exports = function (grunt) {
 	    	scripts: {
 	    		files: ['<%= app.src.js %>'],
 	    		tasks: ['concat', 'copy:dist']
+	    	},
+	    	assets: {
+	    		files: ['<%= app.res.base %>**/*'],
+	    		tasks: ['copy:assets']
+	    	},
+	    	express: {
+	    		files:  [ '<%= app.src.server.js %>' ],
+	    		tasks:  [ 'express:dev' ],
+	    		options: {
+	    			spawn: false // Without this option specified express won't be reloaded.
+	    		}
 	    	}
 	    }
 	});
