@@ -7,6 +7,12 @@ angular.module('chain-calendar.mainpage', [])
 //	var m = date.getMonth();
 //	var y = date.getFullYear();
 
+//	var User = $resource('/user/:userId', {userId:'@id'});
+//	  var user = User.get({userId:123}, function() {
+//	    user.abc = true;
+//	    user.$save();
+//	  });
+
 	$('#calendar').fullCalendar({
 		header: {
 			left: 'prev,next today',

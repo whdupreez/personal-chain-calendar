@@ -12,6 +12,7 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-html2js": "~0.2.4",
     "express": "~4.1.1",
+    "body-parser": "~1.0.2",
     "grunt-express-server": "~0.4.17",
     "load-grunt-tasks": "~0.4.0",
     "nedb": "~0.10.5",
