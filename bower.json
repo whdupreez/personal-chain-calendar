@@ -10,6 +10,7 @@
     "jquery": "2.1.0",
     "fullcalendar": "1.6.4",
     "angular": "v1.2.16",
-    "angular-route": "v1.2.16"
+    "angular-route": "v1.2.16",
+    "angular-resource": "v1.2.16"
   }
 }

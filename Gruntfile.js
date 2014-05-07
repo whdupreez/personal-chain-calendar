@@ -21,7 +21,11 @@ module.exports = function (grunt) {
 	    	components: {
 	    		tpl: '<%= pkg.name %>-tpl.js',
 	    		base: 'target-grunt/bower_components/',
-	    		angular: ['<%= app.components.base %>angular/angular.js', '<%= app.components.base %>angular-route/angular-route.js'],
+	    		angular: [
+	    		          '<%= app.components.base %>angular/angular.js',
+	    		          '<%= app.components.base %>angular-route/angular-route.js',
+	    		          '<%= app.components.base %>angular-resource/angular-resource.js'
+	    		],
 	    		bootstrap: {
 	    			js: '<%= app.components.base %>bootstrap/dist/js/bootstrap.js',
 	    			fonts: '<%= app.components.base %>bootstrap/dist/fonts'
@@ -151,7 +155,7 @@ module.exports = function (grunt) {
 	    		options: {
 	    			livereload: true,
 	    			port: 9000,
-	    			base: 'target-grunt/dist'
+	    			base: '<%= app.dist %>'
 	    		}
 	    	}
 	    },
@@ -177,7 +181,7 @@ module.exports = function (grunt) {
 	    		tasks: ['less', 'copy:dist']
 	    	},
 	    	html: {
-	    		files: ['**/*.html'],
+	    		files: ['<%= app.src.base %>**/*.html'],
 	    		tasks: ['html2js', 'concat:index', 'copy:dist']
 	    	},
 	    	gruntfile: {

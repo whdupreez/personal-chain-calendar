@@ -1,34 +1,29 @@
-angular.module('chain-calendar.mainpage', [])
+angular.module('chain-calendar.mainpage', ['chain-calendar.components.calendar'])
 
-.controller('MainPageCtrl', ['$scope', '$location', function($scope, $location) {
+.controller('MainPageCtrl', ['$scope', '$location', 'CalendarResourceFactory', function($scope, $location, CalendarResourceFactory) {
 
-//	var date = new Date();
-//	var d = date.getDate();
-//	var m = date.getMonth();
-//	var y = date.getFullYear();
+	var loadCalendar = function(dates) {
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month'
+			},
+			editable: true,
+			dayClick : function(date, allDay, jsEvent, view) {
+				var cell = $(this);
+				cell.toggleClass('cross');
+				var d = date.getDate();
+				var m = date.getMonth();
+				var y = date.getFullYear();
+				console.log(y + '-' + m + '-' + d);
+			}
+		});
+	}
 
-//	var User = $resource('/user/:userId', {userId:'@id'});
-//	  var user = User.get({userId:123}, function() {
-//	    user.abc = true;
-//	    user.$save();
-//	  });
-
-	$('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-//			right: 'month,agendaWeek,agendaDay'
-			right: 'month'
-		},
-		editable: true,
-		dayClick : function(date, allDay, jsEvent, view) {
-			var cell = $(this);
-			cell.toggleClass('cross');
-			var d = date.getDate();
-			var m = date.getMonth();
-			var y = date.getFullYear();
-			console.log(y + '-' + m + '-' + d);
-		}
+	var defaultCalendar = CalendarResourceFactory.create().get({ calendarId: 'default' }, function() {
+		console.log(defaultCalendar);
+		loadCalendar(defaultCalendar.dates);
 	});
 
 }]);
