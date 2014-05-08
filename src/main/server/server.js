@@ -34,7 +34,7 @@ app.get('/calendar/default', function(req, res) {
 		name : 'default',
 		dates : {
 			'2014' : {
-				'05' : [ '6', '7', '8' ]
+				'5' : [ '6', '7', '8', '15' ]
 			}
 		}
 	});
