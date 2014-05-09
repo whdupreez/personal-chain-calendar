@@ -155,7 +155,8 @@ module.exports = function (grunt) {
 	    		options: {
 	    			livereload: true,
 	    			port: 9000,
-	    			base: '<%= app.dist %>'
+	    			base: '<%= app.dist %>',
+	    			debug: true
 	    		}
 	    	}
 	    },

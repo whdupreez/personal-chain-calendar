@@ -2,8 +2,22 @@ angular.module('chain-calendar.mainpage', ['chain-calendar.components.calendar']
 
 .controller('MainPageCtrl', ['$scope', '$location', 'CalendarResourceFactory', function($scope, $location, CalendarResourceFactory) {
 
-	var toggleCell = function(cell) {
-		cell.toggleClass('cross');
+	var defaultCalendar = CalendarResourceFactory.create().get({ name: 'default' }, function() {
+		showCalendar(defaultCalendar.dates);
+	});
+
+	var updating = false;
+
+	var updateCalendarResource = function(date, cell) {
+		if (!updating) {
+			console.log(toSimpleDate(date));
+			defaultCalendar.$cross({name:'default'}, toSimpleDate(date), function(data) {
+				updating = false;
+				toggleCell(cell);
+			}, function(err) {
+				updating = false;
+			});
+		}
 	};
 
 	var showCalendar = function(dates) {
@@ -16,23 +30,33 @@ angular.module('chain-calendar.mainpage', ['chain-calendar.components.calendar']
 			editable: true,
 			dayClick: function(date, allDay, jsEvent, view) {
 				var cell = $(this);
-				toggleCell(cell);
+				updateCalendarResource(date, cell);
 			},
 			dayRender: function(date, cell) {
-				var d = date.getDate().toString();
-				var m = date.getMonth() + 1;
-				var y = date.getFullYear();
-				console.log(d);
-				if (dates[y] && dates[y][m] && dates[y][m].indexOf(d) != -1) {
-					
+				var sd = toSimpleDate(date);
+				if (dates[sd.year]
+					&& dates[sd.year][sd.month]
+					&& dates[sd.year][sd.month].indexOf(sd.day.toString()) != -1) {
+
 					toggleCell(cell);
 				}
 			}
 		});
 	}
 
-	var defaultCalendar = CalendarResourceFactory.create().get({ calendarId: 'default' }, function() {
-		showCalendar(defaultCalendar.dates);
-	});
+	var toggleCell = function(cell) {
+		cell.toggleClass('cross');
+	};
+
+	var toSimpleDate = function(date) {
+		var d = date.getDate();
+		var m = date.getMonth() + 1;
+		var y = date.getFullYear();
+		return {
+			day: d,
+			month: m,
+			year: y
+		}
+	};
 
 }]);
