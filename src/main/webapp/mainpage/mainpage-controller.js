@@ -2,23 +2,27 @@ angular.module('chain-calendar.mainpage', ['chain-calendar.components.calendar']
 
 .controller('MainPageCtrl', ['$scope', '$location', 'CalendarResourceFactory', function($scope, $location, CalendarResourceFactory) {
 
-	var defaultCalendar = CalendarResourceFactory.create().get({ name: 'default' }, function() {
-		showCalendar(defaultCalendar.dates);
+	var defaultCalendar = CalendarResourceFactory.create();
+
+	defaultCalendar.get({
+		name: 'default'
+	}).success(function() {
+		showCalendar(defaultCalendar.data.dates);
 	});
 
 	var updating = false;
 
-	var updateCalendarResource = function(date, cell) {
-		if (!updating) {
-			console.log(toSimpleDate(date));
-			defaultCalendar.$cross({name:'default'}, toSimpleDate(date), function(data) {
-				updating = false;
-				toggleCell(cell);
-			}, function(err) {
-				updating = false;
-			});
-		}
-	};
+//	var updateCalendarResource = function(date, cell) {
+//		if (!updating) {
+//			console.log(toSimpleDate(date));
+//			defaultCalendar.$cross({name:'default'}, toSimpleDate(date), function(data) {
+//				updating = false;
+//				toggleCell(cell);
+//			}, function(err) {
+//				updating = false;
+//			});
+//		}
+//	};
 
 	var showCalendar = function(dates) {
 		$('#calendar').fullCalendar({
@@ -30,7 +34,7 @@ angular.module('chain-calendar.mainpage', ['chain-calendar.components.calendar']
 			editable: true,
 			dayClick: function(date, allDay, jsEvent, view) {
 				var cell = $(this);
-				updateCalendarResource(date, cell);
+//				updateCalendarResource(date, cell);
 			},
 			dayRender: function(date, cell) {
 				var sd = toSimpleDate(date);
