@@ -30,19 +30,59 @@ app.get('/', function(req, res) {
 });
 
 app.get('/calendar/default', function(req, res) {
-	res.send({
-		name : 'default',
-		dates : {
-			'2014' : {
-				'5' : [ '6', '7', '8', '15' ]
-			}
+	db.find({ name: 'default' }, function(err, docs) {
+		if (docs.length === 0) {
+			res.send(404, 'No calendar with name "default".');
+		} else {
+			res.send(docs[0]);
 		}
 	});
+//	res.send({
+//		name : 'default',
+//		dates : {
+//			'2014' : {
+//				'5' : [ '6', '7', '8', '15' ]
+//			}
+//		}
+//	});
 });
 
 app.post('/calendar/default', function(req, res) {
-	console.log(req.body);
-	res.send(req.body);
+	var date = req.body;
+	console.log(date);
+	db.find({ name: 'default' }, function(err, docs) {
+
+		var dates;
+
+		if (docs.length === 0) {
+
+			console.log('No calendar found: "default"');
+			console.log('Creating new calendar: "default"');
+
+			var months = {};
+			months[date.month.toString()] = [ date.day.toString() ];
+
+			dates = {};
+			dates[date.year.toString()] = months;
+
+			var calendar = {
+				name: 'default',
+				dates: dates
+			}
+
+			db.insert(calendar, function(err, newDoc) {
+				console.log('Created new calendar' + newDoc);
+				res.send(200, 'Created new calendar "default".');
+			});
+
+		}
+
+		else {
+			var dates = docs[0];
+			console.log(dates);
+			res.send(200, 'Date added');
+		}
+	});
 });
 
 // Longest Streak
