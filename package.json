@@ -16,6 +16,7 @@
     "grunt-express-server": "~0.4.17",
     "load-grunt-tasks": "~0.4.0",
     "nedb": "~0.10.5",
+    "pg.js": "~3.2.0",
     "time-grunt": "~0.3.1"
   }
 }
